@@ -44,12 +44,17 @@ outputs = [
 [nodes.params]
 time_limit_hours = { type = "number", default = 1.0, exclusive_min = 0.0, doc = "MTAG genetic-covariance optimizer time limit in hours" }
 tol = { type = "number", default = 1e-6, exclusive_min = 0.0, doc = "Relative tolerance passed to the official optimizer" }
-force = { type = "bool", optional = true, doc = "Continue when the official mean-chi-square guard rejects the inputs" }
-no_overlap = { type = "bool", optional = true, doc = "Assume no sample overlap across traits" }
-perfect_gencov = { type = "bool", optional = true, doc = "Assume perfect genetic covariance" }
-equal_h2 = { type = "bool", optional = true, requires = ["perfect_gencov"], doc = "Assume equal heritability across traits; requires perfect_gencov" }
-std_betas = { type = "bool", optional = true, doc = "Emit standardized official betas instead of unstandardized effects" }
-numerical_omega = { type = "bool", optional = true, doc = "Use the official numerical Omega estimator instead of GMM" }
+# fix-review R04 (2026-10-05): the six optional official switches carry
+# PRESENCE semantics — type "flag", not "bool". flag=false (or absent)
+# renders an empty env value so h2.sh's `[ -n "$MTAG_*" ]` omits the CLI
+# switch; the old "bool" typing rendered a non-empty "false" and appended
+# e.g. --force even when the submitter said false.
+force = { type = "flag", optional = true, doc = "Continue when the official mean-chi-square guard rejects the inputs" }
+no_overlap = { type = "flag", optional = true, doc = "Assume no sample overlap across traits" }
+perfect_gencov = { type = "flag", optional = true, doc = "Assume perfect genetic covariance" }
+equal_h2 = { type = "flag", optional = true, requires = ["perfect_gencov"], doc = "Assume equal heritability across traits; requires perfect_gencov" }
+std_betas = { type = "flag", optional = true, doc = "Emit standardized official betas instead of unstandardized effects" }
+numerical_omega = { type = "flag", optional = true, doc = "Use the official numerical Omega estimator instead of GMM" }
 
 [nodes.command]
 interpreter = "sh"
