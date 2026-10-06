@@ -2,7 +2,7 @@ schema_version = 1
 plugin_name = "mtag"
 
 [image]
-reference = "ghcr.io/auto-nomics/autonomics/mtag@sha256:28ac0a0a0ee741340390b7588bf8ba36e6b316d62adc0cab7fd4494f5dd6a90c"
+reference = "ghcr.io/zj-2002/mtag@sha256:d89f1e607804ec66a26f12151e6f6fcc495a1f67a077d9ac900085a9b77cb7e8"
 tag = "1.0.8"
 upstream = "JonJala MTAG 1.0.8 @ 9e17f3c"
 license = "GPL-3"
